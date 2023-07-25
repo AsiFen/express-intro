@@ -1,14 +1,18 @@
 import express from "express"
-import { engine } from "express-handlebars"
+import exphbs from 'express-handlebars'
 import bodyParser from "body-parser";
 import settingsBill from "./settings-bill.js";
-
-
+import path from 'path'
 const app = express();
 
 let settingsBillInstance = settingsBill();
 
-app.engine('handlebars', engine());
+const hbs = exphbs.create({
+    layoutsDir: path.join('/views/layouts/'),
+    defaultLayout: 'main',
+
+});
+app.engine('handlebars', exphbs.engine());
 app.set('view engine', 'handlebars');
 
 app.use(express.static('public'))
@@ -20,23 +24,20 @@ app.use(bodyParser.json())
 //route 
 app.get('/', (req, res) => {
     res.render("index", {
+        getSettings: settingsBillInstance.getSettings(),
         totals: settingsBillInstance.totals(),
         warningLevel: settingsBillInstance.hasReachedWarningLevel(),
-        criticalLevel: settingsBillInstance.hasReachedCriticalLevel()
+        criticalLevel: settingsBillInstance.hasReachedCriticalLevel(),
+        getSettings: settingsBillInstance.getSettings()
+
     })
 });
 
 app.post("/settings", (req, res) => {
     settingsBillInstance.setSettings(req.body)
     console.log(settingsBillInstance.getSettings());
-    // process data
-    //    let globalSetings = settings;
 
-    // note that data can be sent to the template
-    res.render('index', {
-        settings: settingsBillInstance.getSettings()
-    });
-    // res.redirect("/home")
+    res.redirect("/")
 });
 
 app.post("/action", (req, res) => {
@@ -49,14 +50,14 @@ app.post("/action", (req, res) => {
 
 app.get("/actions", (req, res) => {
     res.render("actions", {
-        actions:settingsBillInstance.actions()
+        actions: settingsBillInstance.actions()
     });
 });
 
 app.get("/actions/:actionType", (req, res) => {
     const actionType = req.params.actionType;
     res.render("actions", {
-        actions:settingsBillInstance.actionsFor(actionType)
+        actions: settingsBillInstance.actionsFor(actionType)
     });
 });
 
