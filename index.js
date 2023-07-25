@@ -6,11 +6,6 @@ const app = express();
 
 let settingsBillInstance = settingsBill();
 
-const hbs = exphbs.create({
-    layoutsDir: path.join('/views/layouts/'),
-    defaultLayout: 'main',
-
-});
 app.engine('handlebars', exphbs.engine());
 app.set('view engine', 'handlebars');
 
