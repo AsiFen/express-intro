@@ -103,7 +103,7 @@ export default function settingsBill() {
         return {
             smsTotal: smsTotal.toFixed(2),
             callTotal: callTotal.toFixed(2),
-            grandTotal: grandTotal()
+            grandTotal: grandTotal().toFixed(2)
         }
     }
 

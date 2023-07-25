@@ -60,16 +60,16 @@
         <form action="/settings" method="POST">
           <label for="exampleEmailInput">Call cost</label>
           <input name="callCost" class="u-full-width callCostSetting" type="number" placeholder="eg. 2.55"
-            value="{{settings.callCost}}">
+            value="{{getSettings.callCost}}">
           <label for="exampleEmailInput">SMS cost</label>
           <input name="smsCost" class="u-full-width smsCostSetting" type="number" placeholder="eg. 0.65"
-            value="{{settings.smsCost}}">
+            value="{{getSettings.smsCost}}">
           <label for="">Warning level</label>
           <input name="warningLevel" class="u-full-width warningLevelSetting" type="number" placeholder="eg. 30.00"
-            class="warningLevel" value="{{settings.warningLevel}}">
+            class="warningLevel" value="{{getSettings.warningLevel}}">
           <label for="">Critical level</label>
           <input name="criticalLevel" class="u-full-width criticalLevelSetting" type="number" placeholder="eg. 65.00"
-            value="{{settings.criticalLevel}}">
+            value="{{getSettings.criticalLevel}}">
           <button class="button-primary updateSettings" type="submit" name="button">Update settings</button>
         </form>
       </div>

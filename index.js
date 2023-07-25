@@ -3,6 +3,7 @@ import exphbs from 'express-handlebars'
 import bodyParser from "body-parser";
 import settingsBill from "./settings-bill.js";
 import path from 'path'
+import { log } from "console";
 const app = express();
 
 let settingsBillInstance = settingsBill();
@@ -23,21 +24,25 @@ app.use(bodyParser.json())
 
 //route 
 app.get('/', (req, res) => {
+    console.log(settingsBillInstance.getSettings());
     res.render("index", {
-        getSettings: settingsBillInstance.getSettings(),
         totals: settingsBillInstance.totals(),
         warningLevel: settingsBillInstance.hasReachedWarningLevel(),
         criticalLevel: settingsBillInstance.hasReachedCriticalLevel(),
         getSettings: settingsBillInstance.getSettings()
 
     })
+
 });
 
 app.post("/settings", (req, res) => {
     settingsBillInstance.setSettings(req.body)
-    console.log(settingsBillInstance.getSettings());
-
+    settingsBillInstance.getSettings()
     res.redirect("/")
+
+    // res.render('index', {
+    //     getSettings: settingsBillInstance.getSettings()
+    // })
 });
 
 app.post("/action", (req, res) => {
