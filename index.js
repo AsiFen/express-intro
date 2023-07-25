@@ -2,8 +2,6 @@ import express from "express"
 import exphbs from 'express-handlebars'
 import bodyParser from "body-parser";
 import settingsBill from "./settings-bill.js";
-import path from 'path'
-import { log } from "console";
 const app = express();
 
 let settingsBillInstance = settingsBill();
@@ -24,7 +22,7 @@ app.use(bodyParser.json())
 
 //route 
 app.get('/', (req, res) => {
-    console.log(settingsBillInstance.getSettings());
+    // console.log(settingsBillInstance.getSettings());
     res.render("index", {
         totals: settingsBillInstance.totals(),
         warningLevel: settingsBillInstance.hasReachedWarningLevel(),
@@ -47,7 +45,7 @@ app.post("/settings", (req, res) => {
 
 app.post("/action", (req, res) => {
     //capture the call types to add
-    console.log(req.body.actionType);
+    // console.log(req.body.actionType);
     settingsBillInstance.recordAction(req.body.actionType)
     res.redirect("/")
 
