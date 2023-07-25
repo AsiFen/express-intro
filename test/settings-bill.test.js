@@ -1,5 +1,5 @@
 import assert from "assert"
-import settingsBill from "../settings-bill.js"
+import SettingsBill from "../settings-bill.js"
 
 
 describe('settings-bill', function () {
